@@ -45,7 +45,7 @@ jobs:
           echo build_number="${BUILD_NUMBER}" >> $GITHUB_OUTPUT
           echo build_type="${BUILD_TYPE}" >> $GITHUB_OUTPUT
           echo build_url=https://api.papermc.io/v2/projects/paper/versions/${{ env.BASE_VERSION }}/builds/${BUILD_NUMBER} >> $GITHUB_OUTPUT
-          echo download_url="https://papermc.io/api/v2/projects/paper/versions/${{ env.BASE_VERSION }}/builds/${BUILD_NUMBER}/downloads/paper-${{ env.BASE_VERSION }}-${BUILD_NUMBER}.jar" >> $GITHUB_OUTPUT
+          echo download_url="https://api.papermc.io/v2/projects/paper/versions/${{ env.BASE_VERSION }}/builds/${BUILD_NUMBER}/downloads/paper-${{ env.BASE_VERSION }}-${BUILD_NUMBER}.jar" >> $GITHUB_OUTPUT
 
       - name: show version infos
         run: |

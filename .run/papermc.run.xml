@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="papermc" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+  <configuration default="false" name="papermc" type="docker-deploy" factoryName="dockerfile" server-name="localhost">
     <deployment type="dockerfile">
       <settings>
         <option name="imageTag" value="docker.io/marctv/papermc:dev" />
@@ -8,7 +8,7 @@
           <list>
             <DockerEnvVarImpl>
               <option name="name" value="DOWNLOAD_URL" />
-              <option name="value" value="https://papermc.io/api/v2/projects/paper/versions/1.21/builds/109/downloads/paper-1.21-109.jar" />
+              <option name="value" value="https://api.papermc.io/v2/projects/paper/versions/1.21.4/builds/72/downloads/paper-1.21.4-72.jar" />
             </DockerEnvVarImpl>
           </list>
         </option>
