@@ -15,7 +15,7 @@ Always up-to-date with the latest PaperMC version.
 ## Quick Start
 
 ```sh
-docker run --name mcserver -e MEMORYSIZE='1G' -v /home/joe/mcserver:/data:rw -p 25565:25565 -i marctv/minecraft-papermc-server:latest
+docker run --name mcserver --memory=4g -v /home/joe/mcserver:/data:rw -p 25565:25565 -i marctv/minecraft-papermc-server:latest
 ```
 
 The server will generate all data including the world and config files in `/home/joe/mcserver`. Change that to an
@@ -27,7 +27,7 @@ existing folder.
 docker run -d \
   --name mcserver \
   --restart=unless-stopped \
-  -e MEMORYSIZE="1G" \
+  --memory=1g \
   -p 25565:25565/tcp \
   -p 25565:25565/udp \
   -v /home/docker/mcserver:/data:rw \
@@ -43,8 +43,11 @@ services:
     restart: always
     container_name: "mcserver"
     environment:
-      MEMORYSIZE: "1G"
       PAPERMC_FLAGS: ""
+    deploy:
+      resources:
+        limits:
+          memory: 1G
     volumes:
       - minecraftserver:/data
     ports:
@@ -52,6 +55,7 @@ services:
     # The following allow `docker attach minecraft` to work
     stdin_open: true
     tty: true
+
 volumes:
   minecraftserver:
 ```
@@ -136,22 +140,30 @@ make help      # prints a help message
 
 ## Environment variables
 
-MEMORYSIZE = 1G
+### Memory
+
+`MEMORYSIZE = 1G`
 
 Not more than 70% of your RAM for your container. This is important. Because this is the RAM, your Minecraft Server will
 use within the container WITHOUT the operating system.
 
-TZ = Europe/Berlin
+But don't use this unless you really need this. Use runtime memory limits.
+
+### Timezone
+
+`TZ = Europe/Berlin`
 
 Sets the timezone for the container. A list of valid values can be found on
 Wikipedia: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
-PAPERMC_FLAGS = --nojline
+### Additional flags
+
+`PAPERMC_FLAGS = --nojline`
 
 Optional: Sets the command-line flags for PaperMC. Remove `--nojline` if you want to enable color and tab-completion for
 the server console.
 
-JAVAFLAGS
+`JAVAFLAGS`
 
 Optional: Overrides the optimized java parameter configuration with your own. You can set your own Xms and Xmx values
 this way.
@@ -223,7 +235,7 @@ mkdir mcserver
 docker run -d \
 --restart unless-stopped \
 --name mcserver \
--e MEMORYSIZE='1G' \
+--memory=1g \
 -e PAPERMC_FLAGS='' \
 -v /home/pi/mcserver:/data:rw \
 -p 25565:25565 \
