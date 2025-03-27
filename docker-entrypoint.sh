@@ -42,4 +42,19 @@ if ! id "$DOCKER_USER" >/dev/null 2>&1; then
 fi
 
 export HOME=/home/$DOCKER_USER
-exec gosu $DOCKER_USER:$DOCKER_GROUP java -jar -Xms$MEMORYSIZE -Xmx$MEMORYSIZE $JAVAFLAGS /opt/minecraft/paperspigot.jar $PAPERMC_FLAGS nogui
+
+# Construct Java command with optional memory settings
+JAVA_CMD="gosu $DOCKER_USER:$DOCKER_GROUP java"
+
+# Add memory settings if MEMORYSIZE is provided
+if [ -n "$MEMORYSIZE" ]; then
+    JAVA_CMD="$JAVA_CMD -Xms$MEMORYSIZE -Xmx$MEMORYSIZE"
+fi
+
+# Add additional Java flags if provided
+if [ -n "$JAVAFLAGS" ]; then
+    JAVA_CMD="$JAVA_CMD $JAVAFLAGS"
+fi
+
+# Execute the final command
+exec $JAVA_CMD -jar /opt/minecraft/paperspigot.jar $PAPERMC_FLAGS nogui
