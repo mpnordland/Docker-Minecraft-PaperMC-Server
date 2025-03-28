@@ -4,8 +4,11 @@ services:
     restart: always
     container_name: "mcserver"
     environment:
-      MEMORY: "1G"
       PAPERMC_FLAGS: ""
+    deploy:
+      resources:
+        limits:
+          memory: 1G
     volumes:
       - "/home/pi/mcserver:/data:rw"
     ports:
