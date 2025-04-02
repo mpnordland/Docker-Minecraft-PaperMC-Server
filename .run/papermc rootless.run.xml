@@ -1,0 +1,53 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="papermc rootless" type="docker-deploy" factoryName="dockerfile" server-name="localhost">
+    <deployment type="dockerfile">
+      <settings>
+        <option name="imageTag" value="docker.io/marctv/papermc:dev" />
+        <option name="attachToContainerNeeded" value="true" />
+        <option name="buildArgs">
+          <list>
+            <DockerEnvVarImpl>
+              <option name="name" value="DOWNLOAD_URL" />
+              <option name="value" value="https://api.papermc.io/v2/projects/paper/versions/1.21.4/builds/222/downloads/paper-1.21.4-222.jar" />
+            </DockerEnvVarImpl>
+          </list>
+        </option>
+        <option name="containerName" value="papermc-rootless" />
+        <option name="envVars">
+          <list>
+            <DockerEnvVarImpl>
+              <option name="name" value="TZ" />
+              <option name="value" value="Europe/Berlin" />
+            </DockerEnvVarImpl>
+          </list>
+        </option>
+        <option name="portBindings">
+          <list>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="25565" />
+              <option name="hostPort" value="25565" />
+            </DockerPortBindingImpl>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="25565" />
+              <option name="hostPort" value="25565" />
+              <option name="protocol" value="udp" />
+            </DockerPortBindingImpl>
+          </list>
+        </option>
+        <option name="commandLineOptions" value="--kernel-memory 1G --user 9001:9001" />
+        <option name="showCommandPreview" value="true" />
+        <option name="sourceFilePath" value="Dockerfile" />
+        <option name="volumeBindings">
+          <list>
+            <DockerVolumeBindingImpl>
+              <option name="containerPath" value="/etc/localtime" />
+              <option name="hostPath" value="/etc/localtime" />
+              <option name="readOnly" value="true" />
+            </DockerVolumeBindingImpl>
+          </list>
+        </option>
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>
