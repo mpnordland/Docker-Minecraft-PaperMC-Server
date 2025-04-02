@@ -78,15 +78,32 @@ docker stop mcserver
 
 Or just use https://containrrr.dev/watchtower/
 
-## Run as non-root user
+## Run as another user
 
-You can get the desired UID/GID (xxx) with the ID command (id username) then add the following to your docker run
+You can get the desired UID/GID (xxx) with the ID command (`id username`) then add the following to your docker run
 command:
 
 ```sh
--e PUID=xxx
--e PGID=xxx
+-e PUID=9001
+-e PGID=9001
 ```
+
+> [!NOTE]
+> the permissions are set automatically.
+
+## Run rootless
+
+You can also run the container `rootless`. Just use the native user argument with your desired UID/GID:
+
+```sh
+--user=9001:9001
+```
+
+> [!IMPORTANT]  
+> replace the IDs with your own.
+
+> [!CAUTION]
+> make sure the folder you mount has the correct permissions.
 
 ### Skip permission change step
 

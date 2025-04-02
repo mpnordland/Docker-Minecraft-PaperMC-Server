@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jre
+FROM docker.io/eclipse-temurin:21-jre
 
 ARG DOWNLOAD_URL
 
@@ -9,7 +9,7 @@ ADD "${DOWNLOAD_URL}" /opt/minecraft/paperspigot.jar
 COPY --from=docker.io/itzg/rcon-cli:latest /rcon-cli /usr/local/bin/rcon-cli
 
 # install dependencies
-RUN apt update && apt install -y gosu webp adduser && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y gosu webp adduser netcat-openbsd && apt clean && rm -rf /var/lib/apt/lists/*
 
 # Expose minecraft port
 EXPOSE 25565/tcp 25565/udp
@@ -30,7 +30,8 @@ WORKDIR /data
 
 COPY /docker-entrypoint.sh /opt/minecraft
 
-RUN chmod +x /opt/minecraft/docker-entrypoint.sh
+RUN chmod -R a+rw /opt/minecraft && chmod -R a+rw /data/
 
-# Entrypoint
 ENTRYPOINT ["/opt/minecraft/docker-entrypoint.sh"]
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=3m CMD nc -z 127.0.0.1 25565 || exit 1
